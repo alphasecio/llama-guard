@@ -37,17 +37,43 @@ def parse_response(response):
     
     return verdict, categories
 
-# Streamlit app
-st.subheader("Llama Guard")
+# Streamlit app config
+st.set_page_config(
+    page_title="Llama Guard",
+    page_icon=":llama:",
+    initial_sidebar_state="auto",
+)
+
 with st.sidebar:
-  groq_api_key = st.text_input("Groq API Key", type="password")
+  st.subheader("Llama Guard")
+  st.markdown(
+    """
+    [Llama Guard](https://www.llama.com/docs/model-cards-and-prompt-formats/llama-guard-3) is an LLM-based input-output safeguard model geared towards Human-AI conversation use cases.
+    If the input is determined to be safe, the response will be `Safe`. Else, the response will be `Unsafe`, followed by one or more of the violating categories:
+    * S1: Violent Crimes. 
+    * S2: Non-Violent Crimes. 
+    * S3: Sex Crimes. 
+    * S4: Child Exploitation. 
+    * S5: Defamation. 
+    * S6: Specialized Advice. 
+    * S7: Privacy. 
+    * S8: Intellectual Property. 
+    * S9: Indiscriminate Weapons. 
+    * S10: Hate. 
+    * S11: Self-Harm. 
+    * S12: Sexual Content. 
+    * S13: Elections.
+    * S14: Code Interpreter Abuse. 
+    """
+  )
+  groq_api_key = st.text_input("Groq API Key", type="password", help="Get your API key [here](https://console.groq.com/keys).")
 
-col1, col2 = st.columns([4,1])  
-prompt = col1.text_input("Prompt", label_visibility="collapsed")
-validate = col2.button("Validate")
+prompt = st.text_area("Enter your prompt here", height=200)
+analyse = st.button("Analyse")
+st.divider()
 
-# If the Validate button is clicked
-if validate:
+# If the Analyse button is clicked
+if analyse:
   if not groq_api_key.strip() or not prompt.strip():
     st.error("Please provide the missing fields.")
   else:
