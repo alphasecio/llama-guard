@@ -66,15 +66,18 @@ with st.sidebar:
     * S14: Code Interpreter Abuse. 
     """
   )
-  groq_api_key = st.text_input("Groq API Key", type="password", help="Get your API key [here](https://console.groq.com/keys).")
+  groq_api_key = st.text_input("Groq API key", type="password", help="Get your API key [here](https://console.groq.com/keys).")
 
-prompt = st.text_area("Enter your prompt here", height=200)
-analyse = st.button("Analyse")
+with st.form("my_form"):
+  prompt = st.text_area("Enter your prompt here", height=200)
+  analyse = st.form_submit_button("Analyse")
 
 # If the Analyse button is clicked
 if analyse:
-  if not groq_api_key.strip() or not prompt.strip():
-    st.error("Please provide the missing fields.")
+  if not groq_api_key.strip():
+    st.error("Please provide the Groq Cloud API key.")
+  elif not prompt.strip():
+    st.error("Please provide the prompt to be analysed.")
   else:
     try:
       # Initialize Groq client after validating API key
