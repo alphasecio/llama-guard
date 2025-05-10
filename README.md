@@ -1,5 +1,5 @@
-# llama-guard
-[Llama Guard](https://www.llama.com/docs/model-cards-and-prompt-formats/llama-guard-3) is an LLM-based input-output safeguard model geared towards Human-AI conversation use cases. If the input is determined to be safe, the response will be `Safe`. Else, the response will be `Unsafe`, followed by one or more of the violating categories:
+# Llama Guard
+[Llama Guard](https://www.llama.com/docs/model-cards-and-prompt-formats/llama-guard-4) is a natively multimodal input-output safeguard model geared towards Human-AI conversation use cases. If the input is determined to be safe, the response will be `Safe`. Else, the response will be `Unsafe`, followed by one or more of the violating categories:
 * S1: Violent Crimes. 
 * S2: Non-Violent Crimes. 
 * S3: Sex Crimes. 
@@ -15,7 +15,7 @@
 * S13: Elections.
 * S14: Code Interpreter Abuse. 
 
-This repository contains a Streamlit app for exploring content moderation with Llama Guard on [Groq](https://groq.com). Sign up for an account at [GroqCloud](https://console.groq.com/keys) and get an API token, which you'll need for this project.
+This repository contains a Streamlit app for exploring content moderation with Llama Guard 4 on [Groq](https://groq.com). Sign up for an account at [GroqCloud](https://console.groq.com/keys) and get an API token, which you'll need for this project.
 
 Here's a sample response by Llama Guard upon detecting a prompt that violated a specific category.
 
