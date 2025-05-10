@@ -47,7 +47,7 @@ st.subheader("Llama Guard Safety Checker")
 with st.sidebar:
   st.markdown(
     """
-    [Llama Guard](https://www.llama.com/docs/model-cards-and-prompt-formats/llama-guard-3) is an LLM-based input-output safeguard model geared towards Human-AI conversation use cases.
+    [Llama Guard](https://www.llama.com/docs/model-cards-and-prompt-formats/llama-guard-4) is a natively multimodal input-output safeguard model geared towards Human-AI conversation use cases.
     
     If the input is determined to be safe, the response will be `Safe`. Else, the response will be `Unsafe`, followed by one or more of the violating categories:
     * S1: Violent Crimes. 
@@ -84,7 +84,7 @@ if analyse:
       client = Groq(api_key=groq_api_key)
       
       with st.spinner("Please wait..."):
-        # Run llama-guard-3-8b content moderation model on Groq
+        # Run meta-llama/Llama-Guard-4-12B content moderation model on Groq
         chat_completion = client.chat.completions.create(
             messages=[
                 {
@@ -92,7 +92,7 @@ if analyse:
                     "content": prompt,
                 }
             ],
-            model="llama-guard-3-8b",
+            model="meta-llama/Llama-Guard-4-12B",
         )
 
         # Parse response and display results
