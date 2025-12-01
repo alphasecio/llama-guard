@@ -1,4 +1,5 @@
-import os, streamlit as st
+import os
+import streamlit as st
 from groq import Groq
 
 # Define a dictionary to map against MLCommons taxonomy of hazards
@@ -40,33 +41,38 @@ def parse_response(response):
 st.set_page_config(
     page_title="Llama Guard Safety Checker",
     page_icon="🛡️",
-    initial_sidebar_state="auto",
+    initial_sidebar_state="expanded",
 )
 
-st.subheader("Llama Guard Safety Checker")
+st.subheader("🛡️ Llama Guard Safety Checker")
 with st.sidebar:
-  st.markdown(
+  st.subheader("⚙️ Settings")
+  groq_api_key = st.text_input("Groq API key", type="password", help="Get your API key [here](https://console.groq.com/keys).")
+  st.info(
     """
-    [Llama Guard](https://www.llama.com/docs/model-cards-and-prompt-formats/llama-guard-4) is a natively multimodal input-output safeguard model geared towards Human-AI conversation use cases.
-    
-    If the input is determined to be safe, the response will be `Safe`. Else, the response will be `Unsafe`, followed by one or more of the violating categories:
-    * S1: Violent Crimes. 
-    * S2: Non-Violent Crimes. 
-    * S3: Sex Crimes. 
-    * S4: Child Sexual Exploitation. 
-    * S5: Defamation. 
-    * S6: Specialized Advice. 
-    * S7: Privacy. 
-    * S8: Intellectual Property. 
-    * S9: Indiscriminate Weapons. 
-    * S10: Hate. 
-    * S11: Suicide & Self-Harm. 
-    * S12: Sexual Content. 
-    * S13: Elections.
-    * S14: Code Interpreter Abuse. 
+    Llama Guard evaluates inputs against the [MLCommons Taxonomy of Hazards](https://alphasec.io/mlcommons-towards-safe-and-responsible-ai).\n\n
+    If the input is determined to be safe, the response will be `Safe`. Else, the response will be `Unsafe`, followed by one or more of the violating categories below.
     """
   )
-  groq_api_key = st.text_input("Groq API key", type="password", help="Get your API key [here](https://console.groq.com/keys).")
+  with st.expander("Safety Categories", expanded=True):
+    st.markdown(
+      """
+      * S1: Violent Crimes. 
+      * S2: Non-Violent Crimes. 
+      * S3: Sex Crimes. 
+      * S4: Child Sexual Exploitation. 
+      * S5: Defamation. 
+      * S6: Specialized Advice. 
+      * S7: Privacy. 
+      * S8: Intellectual Property. 
+      * S9: Indiscriminate Weapons. 
+      * S10: Hate. 
+      * S11: Suicide & Self-Harm. 
+      * S12: Sexual Content. 
+      * S13: Elections.
+      * S14: Code Interpreter Abuse. 
+      """
+    )
 
 with st.form("my_form"):
   prompt = st.text_area("Enter your prompt here", height=200)
